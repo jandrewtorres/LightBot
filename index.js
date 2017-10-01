@@ -1,1 +1,1 @@
-var log = require('./bot/lightbot.js');
+var bot = require('./bot/lightbot.js');
