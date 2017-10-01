@@ -1,28 +1,63 @@
-body {
-  background-color: #d3d3d3;
+html, body {
   margin: 0;
   padding: 0;
   font-family: 'Open Sans', sans-serif;
+  height: 100%;
 }
 
 #App {
-  height: 100vh;   
+  height: 100%;   
+  display: flex;
+  flex-direction: column;
 }
 
 #title-bar {
+  display: flex;
   background-color: black;
   color: white;
   width: 100%;
   height: 50px;
-  display: flex;
+  min-height: 50px;
   justify-content: center;
   align-items: center;
 }
 
 #panel-container {
   display: flex;
+  flex-grow: 1;
 }
 
 .panel {
   flex: 1 50%;
+}
+
+#lightbulb-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#chat-panel {
+  display: flex;
+  flex-direction: column;
+  background-color: #d3d3d3;
+  padding: 7px;
+  border-right: 1px solid black;
+}
+
+#chat-box {
+  text-align: left;
+  background: white;
+  border: 1px solid black;
+  flex-grow: 1;
+}
+
+#submit-msg-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+}
+
+#user-msg {
+  flex-grow: 1;
 }

@@ -15,15 +15,21 @@
         <span id="title-text-box">LightBot</span>
       </div>
       <div id="panel-container">
-      <div class="panel">
-        <h1>This is where the chat interface will be</h1>
-      </div>
-
-      <div class="panel">
-        <h1> This is where the lightbulb will be </h1>
-      </div>
+        <div id="chat-panel" class="panel">
+          <div id="chat-box"></div>
+            <form name="message" action="">
+              <div id="submit-msg-wrapper">
+                <input name="user-msg" type="text" id="user-msg" />
+                <input name="submit-msg" type="submit" id="submit-msg" value="Send" />
+              </div>
+            </form>
+        </div>
+        <div id="lightbulb-panel" class="panel">
+          <img src="resources/images/lightbulb.png" />
+        </div>
     </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="resources/js/script.js"></script>
 	</body>
 
