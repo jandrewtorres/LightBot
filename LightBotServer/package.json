@@ -1,0 +1,32 @@
+{
+  "name": "lightbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jandrewtorres/LightBot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jandrewtorres/LightBot/issues"
+  },
+  "homepage": "https://github.com/jandrewtorres/LightBot#readme",
+  "dependencies": {
+    "apiai": "^4.0.3",
+    "body-parser": "^1.18.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.1",
+    "ip": "^1.1.5",
+    "multer": "^1.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
