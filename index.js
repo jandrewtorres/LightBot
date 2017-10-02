@@ -1,1 +1,0 @@
-var bot = require('./bot/lightbot.js');
