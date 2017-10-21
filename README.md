@@ -1,21 +1,20 @@
 # LightBot
 An intelligent light
 
-## LightBotUI
-The frontend for LightBot
-HTML/CSS/JS/JQuery
+[LightBot Website Link](https://light-bot.herokuapp.com/)
+
+## LightBot Developer Notes
+React/Node application.
 
 ## LightBotServer
-The backend for LightBot
-NodeJS/Express/api.ai
-
 To begin development: `npm install`
 
-To run: `npm start`
+To run: `npm run build`
 
-## Developer Notes
+In another terminal window: `npm run serve`
+
+Navigate to localhost:8082 in your browser
 
 ### Install NVM
 Use this tutorial to install nvm (Node Version Manager) and the latest version of Node.js: [Install NVM and Node.js](http://nodesource.com/blog/installing-node-js-tutorial-using-nvm-on-mac-os-x-and-ubuntu/)
-
 
