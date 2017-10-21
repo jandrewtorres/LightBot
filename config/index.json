@@ -1,0 +1,4 @@
+{
+  "dbUri": "mongodb://jandrewtorres:Andr3w135246@lightbot-shard-00-00-m9lrc.mongodb.net:27017,lightbot-shard-00-01-m9lrc.mongodb.net:27017,lightbot-shard-00-02-m9lrc.mongodb.net:27017/test?ssl=true&replicaSet=LightBot-shard-0&authSource=admin",
+  "jwtSecret": "secretphrase"
+}
