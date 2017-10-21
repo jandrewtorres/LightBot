@@ -54,7 +54,7 @@ app.get('/', function(req, res) {
 */
 
 // Run Express server
-app.listen(8082, () => {
+app.listen(process.env.PORT || 8082, () => {
 	var host = ip.address();
 	var port = 8082;
 
