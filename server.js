@@ -53,6 +53,10 @@ app.get('/', function(req, res) {
 });
 */
 
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './dist/index.html'))
+})
+
 // Run Express server
 app.listen(process.env.PORT || 8082, () => {
 	var host = ip.address();

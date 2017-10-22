@@ -10,10 +10,12 @@ class HomePage extends React.Component {
   render() {
     return (
       <div className='panel-wrapper'>
-        {Auth.isUserAuthenticated() == false ? (
-          <Card className="container">
-            <CardTitle title="Welcome!!" subtitle="LightBot" />
-          </Card> ) : (
+        {
+          Auth.isUserAuthenticated() == false ? (
+            <Card className="container">
+              <CardTitle title="Welcome!!" subtitle="LightBot" />
+            </Card>
+          ) : (
             <DashboardPage/>
           )
         }

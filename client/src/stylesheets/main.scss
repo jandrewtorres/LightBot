@@ -1,4 +1,9 @@
 @import 'titlebar';
+@import 'card';
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
 
 html, body {
   margin: 0;
@@ -60,8 +65,6 @@ html, body {
   flex-grow: 1;
 }
 
-.container {
-  margin: auto;
-  text-align: center;
-  width: 700px;
+.card-heading {
+  padding: 16px;
 }
