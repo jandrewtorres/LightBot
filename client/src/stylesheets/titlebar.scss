@@ -7,26 +7,33 @@
   min-height: 50px;
   justify-content: space-between;
   align-items: center;
-}
 
-.top-bar-left {
-  margin: 0;
-  font-size: 1.5em;
-  margin-left: 1em;
-}
+  .top-bar-left {
+    margin: 0;
+    font-size: 1.5em;
+    margin-left: 1em;
 
-.top-bar-left a {
-  text-decoration: none;
-}
+    a {
+      text-decoration: none;
+    }
+  }
 
-.top-bar-right {
-  float: right;
-}
 
-.top-bar-right-item {
-  margin-right: 1em;
-}
 
-#title-bar a:visited {
-  color: white;
+  .top-bar-right {
+    float: right;
+  }
+
+  .top-bar-right-item {
+    margin-right: 1em;
+  }
+
+  a {
+    color: white;
+  }
+
+  a:visited {
+    color: white;
+  }
+
 }
