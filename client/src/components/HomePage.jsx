@@ -4,7 +4,6 @@ import { Card, CardTitle } from 'material-ui/Card';
 import Auth from '../modules/Auth';
 import DashboardPage from '../containers/DashboardPage.jsx';
 
-
 class HomePage extends React.Component {
 
   render() {
@@ -13,7 +12,7 @@ class HomePage extends React.Component {
         {
           Auth.isUserAuthenticated() == false ? (
             <Card className="container">
-              <CardTitle title="Welcome!!" subtitle="LightBot" />
+              <CardTitle title="LightBot" subtitle="An intelligent light" />
             </Card>
           ) : (
             <DashboardPage/>
