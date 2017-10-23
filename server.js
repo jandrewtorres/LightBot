@@ -6,13 +6,16 @@ const passport = require('passport');
 const config = require('./config');
 const path = require('path');
 const bodyParser = require('body-parser');
-
+const cors = require('cors');
 // connect to database and load models
 require('./server/models').connect(config.dbUri, {
 	useMongoClient: true,
 });
 
 const app = express();
+
+// enable cors for all routes
+app.use(cors());
 
 // tell the app to look for static files in these directories
 app.use(express.static('./dist'));

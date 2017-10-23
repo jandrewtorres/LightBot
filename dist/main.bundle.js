@@ -36867,10 +36867,20 @@ var ChatPanel = function (_React$Component) {
 
   _createClass(ChatPanel, [{
     key: 'getBotMessage',
-    value: function getBotMessage() {}
+    value: function getBotMessage(usermessage) {
+      fetch('https://light-bot.herokuapp.com/botresponse?msg=' + usermessage, {
+        method: 'GET'
+      }).then(function (response) {
+        return response.json();
+      }).then(function (responseJSON) {
+        return responseJSON.result.fulfillment.speech;
+      });
+    }
   }, {
     key: 'addMessage',
     value: function addMessage(event) {
+      event.preventDefault();
+
       var messages = this.state.messages;
 
       var key = messages.length > 0 ? messages[messages.length - 1].key + 1 : 0;
@@ -36880,22 +36890,19 @@ var ChatPanel = function (_React$Component) {
         message: this.state.userMsg,
         key: key
       };
-
       key = key + 1;
 
       var botmessage = {
         name: 'LightBot',
-        message: this.state.userMsg,
+        message: this.getBotMessage(newmessage.message),
         key: key
       };
 
       this.setState(function (prevState) {
         return {
-          messages: [].concat(_toConsumableArray(prevState.messages), [newmessage])
+          messages: [].concat(_toConsumableArray(prevState.messages), [newmessage, botmessage])
         };
       });
-
-      event.preventDefault();
     }
   }, {
     key: 'handleMessageChange',
