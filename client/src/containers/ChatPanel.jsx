@@ -17,13 +17,16 @@ class ChatPanel extends React.Component {
   }
 
   getBotMessage(usermessage) {
-    fetch('https://light-bot.herokuapp.com/botresponse?msg=' + usermessage, {
-      method: 'GET'
-    })
-    .then((response) => response.json())
-    .then((responseJSON) => {
-      return responseJSON.result.fulfillment.speech;
-    })
+    return new Promise(function(resolve, reject) {
+      fetch('https://light-bot.herokuapp.com/botresponse?msg=' + usermessage, {
+        method: 'GET'
+      })
+      .then((response) => response.json())
+      .then((responseJSON) => {
+        resolve(responseJSON.result.fulfillment.speech);
+      })
+    });
+
   }
 
   addMessage(event) {
@@ -42,15 +45,18 @@ class ChatPanel extends React.Component {
     };
     key = key + 1;
 
-    var botmessage = {
-      name: 'LightBot',
-      message: this.getBotMessage(newmessage.message),
-      key: key
-    }
+    this.getBotMessage(newmessage.message)
+    .then((msg) => {
+      var botmessage = {
+        name: 'LightBot',
+        message: msg,
+        key: key
+      }
 
-    this.setState(prevState => ({
-      messages: [...prevState.messages, newmessage, botmessage]
-    }));
+      this.setState(prevState => ({
+        messages: [...prevState.messages, newmessage, botmessage]
+      }));
+    })
   }
 
   handleMessageChange(event) {

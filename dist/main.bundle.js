@@ -36868,17 +36868,21 @@ var ChatPanel = function (_React$Component) {
   _createClass(ChatPanel, [{
     key: 'getBotMessage',
     value: function getBotMessage(usermessage) {
-      fetch('https://light-bot.herokuapp.com/botresponse?msg=' + usermessage, {
-        method: 'GET'
-      }).then(function (response) {
-        return response.json();
-      }).then(function (responseJSON) {
-        return responseJSON.result.fulfillment.speech;
+      return new Promise(function (resolve, reject) {
+        fetch('https://light-bot.herokuapp.com/botresponse?msg=' + usermessage, {
+          method: 'GET'
+        }).then(function (response) {
+          return response.json();
+        }).then(function (responseJSON) {
+          resolve(responseJSON.result.fulfillment.speech);
+        });
       });
     }
   }, {
     key: 'addMessage',
     value: function addMessage(event) {
+      var _this2 = this;
+
       event.preventDefault();
 
       var messages = this.state.messages;
@@ -36892,16 +36896,18 @@ var ChatPanel = function (_React$Component) {
       };
       key = key + 1;
 
-      var botmessage = {
-        name: 'LightBot',
-        message: this.getBotMessage(newmessage.message),
-        key: key
-      };
-
-      this.setState(function (prevState) {
-        return {
-          messages: [].concat(_toConsumableArray(prevState.messages), [newmessage, botmessage])
+      this.getBotMessage(newmessage.message).then(function (msg) {
+        var botmessage = {
+          name: 'LightBot',
+          message: msg,
+          key: key
         };
+
+        _this2.setState(function (prevState) {
+          return {
+            messages: [].concat(_toConsumableArray(prevState.messages), [newmessage, botmessage])
+          };
+        });
       });
     }
   }, {
