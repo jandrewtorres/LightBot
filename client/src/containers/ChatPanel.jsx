@@ -9,38 +9,41 @@ class ChatPanel extends React.Component {
 
     this.state = {
       userMsg: 'Enter Message',
-      messages: [
-        {
-          name: "LightBot",
-          message: "Hi there!",
-          key: 0
-        },
-        {
-          name: "Andrew",
-          message: "Hey!",
-          key: 1
-        }
-      ]
+      messages: []
     }
 
     this.addMessage = this.addMessage.bind(this);
     this.handleMessageChange = this.handleMessageChange.bind(this);
   }
 
+  getBotMessage() {
+    
+  }
+
   addMessage(event) {
     var messages = this.state.messages;
-    var key = messages[messages.length - 1].key + 1;
+
+    var key = messages.length > 0 ?
+      messages[messages.length - 1].key + 1
+      : 0;
 
     var newmessage = {
       name: 'John',
       message: this.state.userMsg,
       key: key
     };
+
+    key = key + 1;
+
+    var botmessage = {
+      name: 'LightBot',
+      message: this.state.userMsg,
+      key: key
+    }
+
     this.setState(prevState => ({
       messages: [...prevState.messages, newmessage]
-    }),
-      () => console.log(this.state.messages)
-    );
+    }));
 
     event.preventDefault();
   }
@@ -56,13 +59,18 @@ class ChatPanel extends React.Component {
       <div id='chat-panel' className='panel'>
         {
           this.state.messages.map((msg) => (
-            <Message key={msg.key} name={msg.name} message={msg.message}/>
+            <Message
+              key={msg.key}
+              name={msg.name}
+              message={msg.message}
+            />
           ))
         }
         <form
           name="message"
           action=""
           onSubmit={ this.addMessage }>
+
           <div id="submit-msg-wrapper">
             <input
               name="user-msg"

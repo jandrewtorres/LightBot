@@ -39,9 +39,7 @@ const apiRoutes = require('./server/routes/api.js');
 app.use('/auth', authRoutes);
 app.use('/api', apiRoutes);
 
-/*
-// Get response from apiai agent
-app.get('/', function(req, res) {
+app.get('/botresponse', function(req, res) {
 	// User message
 	var msg = req.query.msg;
 
@@ -51,7 +49,6 @@ app.get('/', function(req, res) {
 	});
 	console.log("Request made: " + msg);
 });
-*/
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './dist/index.html'))
