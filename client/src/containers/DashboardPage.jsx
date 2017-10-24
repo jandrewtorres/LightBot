@@ -9,6 +9,13 @@ class DashboardPage extends React.Component {
    */
   constructor(props) {
     super(props);
+
+    // set state
+    this.state = {
+      lightStatus: 'dark'
+    }
+
+    this.setLightStatus = this.setLightStatus.bind(this);
   }
 
   /**
@@ -31,11 +38,18 @@ class DashboardPage extends React.Component {
     xhr.send();
   }
 
+  setLightStatus(status) {
+    // set the state with new user message and bot message
+    this.setState(prevState => ({
+      lightStatus: status
+    }));
+  }
+
   /**
    * Render the component.
    */
   render() {
-    return (<Dashboard />);
+    return (<Dashboard lightStatus={this.state.lightStatus} setLightStatus={this.setLightStatus}/>);
   }
 
 }

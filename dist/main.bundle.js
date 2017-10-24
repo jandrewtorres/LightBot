@@ -36748,7 +36748,15 @@ var DashboardPage = function (_React$Component) {
   function DashboardPage(props) {
     _classCallCheck(this, DashboardPage);
 
-    return _possibleConstructorReturn(this, (DashboardPage.__proto__ || Object.getPrototypeOf(DashboardPage)).call(this, props));
+    // set state
+    var _this = _possibleConstructorReturn(this, (DashboardPage.__proto__ || Object.getPrototypeOf(DashboardPage)).call(this, props));
+
+    _this.state = {
+      lightStatus: 'dark'
+    };
+
+    _this.setLightStatus = _this.setLightStatus.bind(_this);
+    return _this;
   }
 
   /**
@@ -36776,6 +36784,16 @@ var DashboardPage = function (_React$Component) {
       });
       xhr.send();
     }
+  }, {
+    key: 'setLightStatus',
+    value: function setLightStatus(status) {
+      // set the state with new user message and bot message
+      this.setState(function (prevState) {
+        return {
+          lightStatus: status
+        };
+      });
+    }
 
     /**
      * Render the component.
@@ -36784,7 +36802,7 @@ var DashboardPage = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Dashboard_jsx__["a" /* default */], null);
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Dashboard_jsx__["a" /* default */], { lightStatus: this.state.lightStatus, setLightStatus: this.setLightStatus });
     }
   }]);
 
@@ -36806,20 +36824,23 @@ var DashboardPage = function (_React$Component) {
 
 var defaultLightbulb = __webpack_require__(261);
 
-var LightBulbPanel = function LightBulbPanel() {
+var LightBulbPanel = function LightBulbPanel(_ref) {
+  var lightStatus = _ref.lightStatus;
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
-    { id: 'lightbulb-panel', className: 'panel' },
+    { id: 'lightbulb-panel', className: "panel " + lightStatus },
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: defaultLightbulb })
   );
 };
 
-var Dashboard = function Dashboard() {
+var Dashboard = function Dashboard(_ref2) {
+  var lightStatus = _ref2.lightStatus,
+      setLightStatus = _ref2.setLightStatus;
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
     { className: 'panel-wrapper' },
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_ChatPanel_jsx__["a" /* default */], null),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(LightBulbPanel, null)
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_ChatPanel_jsx__["a" /* default */], { lightStatus: lightStatus, setLightStatus: setLightStatus }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(LightBulbPanel, { lightStatus: lightStatus })
   );
 };
 
@@ -36888,7 +36909,7 @@ var ChatPanel = function (_React$Component) {
         }).then(function (response) {
           return response.json();
         }).then(function (responseJSON) {
-          resolve(responseJSON.result.fulfillment.speech);
+          resolve(responseJSON);
         });
       });
     }
@@ -36914,21 +36935,31 @@ var ChatPanel = function (_React$Component) {
 
       // create the new user message object
       var newmessage = {
-        name: 'John',
+        name: 'Me',
         message: this.state.userMsg,
         key: key
       };
+
+      key = key + 1;
 
       // get the bot message, then create bot message and set state to update
       // dom with new message from bot
       this.getBotMessage(newmessage.message).then(function (msg) {
         var botmessage = {
           name: 'LightBot',
-          message: msg,
+          message: msg.result.fulfillment.speech,
           key: key
+        };
 
-          // set the state with new user message and bot message
-        };_this2.setState(function (prevState) {
+        if (msg.result.metadata.intentName == "light_on") {
+          _this2.props.setLightStatus('light');
+        }
+        if (msg.result.metadata.intentName == "light_off") {
+          _this2.props.setLightStatus('dark');
+        }
+
+        // set the state with new user message and bot message
+        _this2.setState(function (prevState) {
           return {
             messages: [].concat(_toConsumableArray(prevState.messages), [newmessage, botmessage])
           };
@@ -36950,16 +36981,20 @@ var ChatPanel = function (_React$Component) {
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
-        { id: 'chat-panel', className: 'panel' },
+        { id: 'chat-panel', className: 'panel ' + this.props.lightStatus },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { id: 'chat-box' },
 
-        // map the messages into Message componenents
-        this.state.messages.map(function (msg) {
-          return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_Message_jsx__["a" /* default */], {
-            key: msg.key,
-            name: msg.name,
-            message: msg.message
-          });
-        }),
+          // map the messages into Message componenents
+          this.state.messages.map(function (msg) {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_Message_jsx__["a" /* default */], {
+              key: msg.key,
+              name: msg.name,
+              message: msg.message
+            });
+          })
+        ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'form',
           {
@@ -37008,11 +37043,19 @@ var Message = function Message(_ref) {
   var name = _ref.name,
       message = _ref.message;
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-    'p',
-    null,
-    name,
-    ': ',
-    message
+    'div',
+    { id: 'message' },
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'span',
+      { id: 'message-name' },
+      name,
+      ':'
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'span',
+      { id: 'message-content' },
+      message
+    )
   );
 };
 
