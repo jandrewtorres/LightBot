@@ -33,7 +33,7 @@ class ChatPanel extends React.Component {
       })
       .then((response) => response.json())
       .then((responseJSON) => {
-        resolve(responseJSON.result.fulfillment.speech);
+        resolve(responseJSON);
       })
     });
 
@@ -57,10 +57,12 @@ class ChatPanel extends React.Component {
 
     // create the new user message object
     var newmessage = {
-      name: 'John',
+      name: 'Me',
       message: this.state.userMsg,
       key: key
     };
+
+    key = key + 1;
 
     // get the bot message, then create bot message and set state to update
     // dom with new message from bot
@@ -68,8 +70,15 @@ class ChatPanel extends React.Component {
     .then((msg) => {
       var botmessage = {
         name: 'LightBot',
-        message: msg,
+        message: msg.result.fulfillment.speech,
         key: key
+      }
+
+      if(msg.result.metadata.intentName == "light_on") {
+        this.props.setLightStatus('light');
+      }
+      if(msg.result.metadata.intentName == "light_off") {
+        this.props.setLightStatus('dark');
       }
 
       // set the state with new user message and bot message
@@ -88,17 +97,19 @@ class ChatPanel extends React.Component {
 
   render() {
     return (
-      <div id='chat-panel' className='panel'>
-        {
-          // map the messages into Message componenents
-          this.state.messages.map((msg) => (
-            <Message
-              key={msg.key}
-              name={msg.name}
-              message={msg.message}
-            />
-          ))
-        }
+      <div id='chat-panel' className={'panel ' + this.props.lightStatus}>
+        <div id='chat-box'>
+          {
+            // map the messages into Message componenents
+            this.state.messages.map((msg) => (
+              <Message
+                key={msg.key}
+                name={msg.name}
+                message={msg.message}
+              />
+            ))
+          }
+        </div>
         <form
           name="message"
           action=""

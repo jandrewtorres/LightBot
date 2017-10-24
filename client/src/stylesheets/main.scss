@@ -3,6 +3,7 @@
 @import 'lightbulbpanel';
 @import 'dashboard';
 @import 'chatpanel';
+@import 'message';
 
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
@@ -26,4 +27,14 @@ html, body {
   width: 100%;
   display: flex;
   flex-direction: column;
+}
+
+.dark {
+  background-color: #404040;
+  color: white;
+}
+
+.light {
+  background-color: white;
+  color: black;
 }

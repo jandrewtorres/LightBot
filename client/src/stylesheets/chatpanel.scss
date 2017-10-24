@@ -1,16 +1,14 @@
 #chat-panel {
   display: flex;
   flex-direction: column;
-  background-color: #d3d3d3;
-  padding: 7px;
-  border-right: 1px solid black;
+  padding: 10px;
 }
 
 #chat-box {
   text-align: left;
-  background: white;
-  border: 1px solid black;
   flex-grow: 1;
+  overflow: auto;
+  font-size: 1.5em;
 }
 
 #submit-msg-wrapper {
@@ -19,6 +17,13 @@
   margin-top: 7px;
 }
 
+#submit-msg {
+  height: 100%;
+  border: none;
+  font-size: 1.5em;
+}
+
 #user-msg {
   flex-grow: 1;
+  font-size: 1.5em;
 }

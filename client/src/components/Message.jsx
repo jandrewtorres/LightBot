@@ -1,7 +1,10 @@
 import React from 'react';
 
 const Message = ({name, message}) => (
-  <p>{name}: {message}</p>
+  <div id='message'>
+    <span id='message-name'>{name}:</span>
+    <span id='message-content'>{message}</span>
+  </div>
 );
 
 export default Message;
