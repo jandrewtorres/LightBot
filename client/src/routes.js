@@ -5,6 +5,7 @@ import LoginPage from './containers/LoginPage.jsx';
 import SignUpPage from './containers/SignUpPage.jsx';
 import Auth from './modules/Auth';
 
+// React Router V4 Frontend routes
 const routes = {
   // base component (wrapper for the whole application).
   component: Base,

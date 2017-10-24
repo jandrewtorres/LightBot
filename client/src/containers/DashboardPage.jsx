@@ -9,10 +9,6 @@ class DashboardPage extends React.Component {
    */
   constructor(props) {
     super(props);
-
-    this.state = {
-      secretData: ''
-    };
   }
 
   /**
@@ -39,7 +35,7 @@ class DashboardPage extends React.Component {
    * Render the component.
    */
   render() {
-    return (<Dashboard secretData={this.state.secretData} />);
+    return (<Dashboard />);
   }
 
 }
