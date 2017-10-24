@@ -6286,12 +6286,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
-
-
 // remove tap delay, essential for material-ui to work properly
 __WEBPACK_IMPORTED_MODULE_7_react_tap_event_plugin___default()();
 
+// render Base UI, Wrap in MuiThemeProvider (material-ui), and
+// BrowserRouter (React Router V4)
 var render = function render(Component) {
   return __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_4_material_ui_styles_MuiThemeProvider___default.a,
@@ -28055,15 +28054,22 @@ var TitleBar = function (_React$Component) {
       redirect: false
     };
 
+    // bind class methods
     _this.onLogOutClicked = _this.onLogOutClicked.bind(_this);
     return _this;
   }
+
+  // Log user out on logout clicked
+
 
   _createClass(TitleBar, [{
     key: 'onLogOutClicked',
     value: function onLogOutClicked() {
       __WEBPACK_IMPORTED_MODULE_2__modules_Auth_js__["a" /* default */].deauthenticateUser();
     }
+
+    // render the top bar based on user authentication status
+
   }, {
     key: 'render',
     value: function render() {
@@ -36742,12 +36748,7 @@ var DashboardPage = function (_React$Component) {
   function DashboardPage(props) {
     _classCallCheck(this, DashboardPage);
 
-    var _this = _possibleConstructorReturn(this, (DashboardPage.__proto__ || Object.getPrototypeOf(DashboardPage)).call(this, props));
-
-    _this.state = {
-      secretData: ''
-    };
-    return _this;
+    return _possibleConstructorReturn(this, (DashboardPage.__proto__ || Object.getPrototypeOf(DashboardPage)).call(this, props));
   }
 
   /**
@@ -36783,7 +36784,7 @@ var DashboardPage = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Dashboard_jsx__["a" /* default */], { secretData: this.state.secretData });
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Dashboard_jsx__["a" /* default */], null);
     }
   }]);
 
@@ -36847,23 +36848,36 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 
+/**
+  *
+  */
+
 var ChatPanel = function (_React$Component) {
   _inherits(ChatPanel, _React$Component);
 
+  /**
+    * Class constructor
+    */
   function ChatPanel(props) {
     _classCallCheck(this, ChatPanel);
 
+    // set state
     var _this = _possibleConstructorReturn(this, (ChatPanel.__proto__ || Object.getPrototypeOf(ChatPanel)).call(this, props));
 
     _this.state = {
       userMsg: 'Enter Message',
       messages: []
-    };
 
-    _this.addMessage = _this.addMessage.bind(_this);
+      // bind methods
+    };_this.addMessage = _this.addMessage.bind(_this);
     _this.handleMessageChange = _this.handleMessageChange.bind(_this);
     return _this;
   }
+
+  /** fetch bot json response from apiai
+   * @param String usermessage - get json response from api ai
+   */
+
 
   _createClass(ChatPanel, [{
     key: 'getBotMessage',
@@ -36878,38 +36892,52 @@ var ChatPanel = function (_React$Component) {
         });
       });
     }
+
+    /** Add message to messages in state. After updating state, the DOM will
+     *  automatically update with the new message.
+     *  @param {event}
+     */
+
   }, {
     key: 'addMessage',
     value: function addMessage(event) {
       var _this2 = this;
 
+      // prevent default form submit
       event.preventDefault();
 
+      // get current messages from state
       var messages = this.state.messages;
 
+      // increment key by one
       var key = messages.length > 0 ? messages[messages.length - 1].key + 1 : 0;
 
+      // create the new user message object
       var newmessage = {
         name: 'John',
         message: this.state.userMsg,
         key: key
       };
-      key = key + 1;
 
+      // get the bot message, then create bot message and set state to update
+      // dom with new message from bot
       this.getBotMessage(newmessage.message).then(function (msg) {
         var botmessage = {
           name: 'LightBot',
           message: msg,
           key: key
-        };
 
-        _this2.setState(function (prevState) {
+          // set the state with new user message and bot message
+        };_this2.setState(function (prevState) {
           return {
             messages: [].concat(_toConsumableArray(prevState.messages), [newmessage, botmessage])
           };
         });
       });
     }
+
+    // update the message based on the text input field value
+
   }, {
     key: 'handleMessageChange',
     value: function handleMessageChange(event) {
@@ -36923,6 +36951,8 @@ var ChatPanel = function (_React$Component) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { id: 'chat-panel', className: 'panel' },
+
+        // map the messages into Message componenents
         this.state.messages.map(function (msg) {
           return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_Message_jsx__["a" /* default */], {
             key: msg.key,

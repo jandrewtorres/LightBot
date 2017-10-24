@@ -1,5 +1,8 @@
 @import 'titlebar';
 @import 'card';
+@import 'lightbulbpanel';
+@import 'dashboard';
+@import 'chatpanel';
 
 input:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset;
@@ -23,48 +26,4 @@ html, body {
   width: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.panel-wrapper {
-  display: flex;
-  flex-grow: 1;
-}
-
-.panel {
-  flex: 1 50%;
-}
-
-#lightbulb-panel {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#chat-panel {
-  display: flex;
-  flex-direction: column;
-  background-color: #d3d3d3;
-  padding: 7px;
-  border-right: 1px solid black;
-}
-
-#chat-box {
-  text-align: left;
-  background: white;
-  border: 1px solid black;
-  flex-grow: 1;
-}
-
-#submit-msg-wrapper {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 7px;
-}
-
-#user-msg {
-  flex-grow: 1;
-}
-
-.card-heading {
-  padding: 16px;
 }

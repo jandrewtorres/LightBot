@@ -38,25 +38,13 @@
   text-align: center;
   width: 700px; }
 
-input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px white inset; }
+.card-heading {
+  padding: 16px; }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Open Sans', sans-serif;
-  height: 100%; }
-
-#App {
-  height: 100%;
+#lightbulb-panel {
   display: flex;
-  flex-direction: column; }
-
-#main-wrapper {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column; }
+  align-items: center;
+  justify-content: center; }
 
 .panel-wrapper {
   display: flex;
@@ -64,11 +52,6 @@ html, body {
 
 .panel {
   flex: 1 50%; }
-
-#lightbulb-panel {
-  display: flex;
-  align-items: center;
-  justify-content: center; }
 
 #chat-panel {
   display: flex;
@@ -91,7 +74,24 @@ html, body {
 #user-msg {
   flex-grow: 1; }
 
-.card-heading {
-  padding: 16px; }
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  height: 100%; }
+
+#App {
+  height: 100%;
+  display: flex;
+  flex-direction: column; }
+
+#main-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column; }
 
 /*# sourceMappingURL=style.css.map*/

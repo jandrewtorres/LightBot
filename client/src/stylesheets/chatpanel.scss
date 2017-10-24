@@ -1,0 +1,24 @@
+#chat-panel {
+  display: flex;
+  flex-direction: column;
+  background-color: #d3d3d3;
+  padding: 7px;
+  border-right: 1px solid black;
+}
+
+#chat-box {
+  text-align: left;
+  background: white;
+  border: 1px solid black;
+  flex-grow: 1;
+}
+
+#submit-msg-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 7px;
+}
+
+#user-msg {
+  flex-grow: 1;
+}

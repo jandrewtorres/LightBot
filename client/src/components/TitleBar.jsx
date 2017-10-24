@@ -16,14 +16,17 @@ class TitleBar extends React.Component {
       redirect: false,
     };
 
+    // bind class methods
     this.onLogOutClicked = this.onLogOutClicked.bind(this);
   }
 
+  // Log user out on logout clicked
   onLogOutClicked()
   {
     Auth.deauthenticateUser();
   }
 
+  // render the top bar based on user authentication status
   render() {
     return (
     <div id="title-bar">
