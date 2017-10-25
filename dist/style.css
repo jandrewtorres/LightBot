@@ -90,7 +90,7 @@
 #message-content {
   width: 75%; }
 
-input:-webkit-autofill {
+:-webkit-autofill {
   -webkit-box-shadow: 0 0 0px 1000px white inset; }
 
 html, body {
@@ -116,6 +116,54 @@ html, body {
 
 .light {
   background-color: white;
+  color: black; }
+
+.dim {
+  background-color: gray;
+  color: black; }
+
+.brighten {
+  background-color: white;
+  color: black; }
+
+.happy {
+  background-color: #ffe17f;
+  color: black; }
+
+.sad {
+  background-color: #8297bf;
+  color: black; }
+
+.love {
+  background-color: #ff91c2;
+  color: black; }
+
+.mad {
+  background-color: #FF0000;
+  color: black; }
+
+.red {
+  background-color: #FF0000;
+  color: black; }
+
+.green {
+  background-color: #00FF00;
+  color: black; }
+
+.blue {
+  background-color: #0000FF;
+  color: black; }
+
+.purple {
+  background-color: #800080;
+  color: white; }
+
+.pink {
+  background-color: #ff91c2;
+  color: black; }
+
+.orange {
+  background-color: #FFA500;
   color: black; }
 
 /*# sourceMappingURL=style.css.map*/
