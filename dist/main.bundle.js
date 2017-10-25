@@ -36870,198 +36870,183 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 
 /**
-  *
-  */
+ *
+ */
 
 var ChatPanel = function (_React$Component) {
-  _inherits(ChatPanel, _React$Component);
+    _inherits(ChatPanel, _React$Component);
 
-  /**
-    * Class constructor
-    */
-  function ChatPanel(props) {
-    _classCallCheck(this, ChatPanel);
+    /**
+     * Class constructor
+     */
+    function ChatPanel(props) {
+        _classCallCheck(this, ChatPanel);
 
-    // set state
-    var _this = _possibleConstructorReturn(this, (ChatPanel.__proto__ || Object.getPrototypeOf(ChatPanel)).call(this, props));
+        // set state
+        var _this = _possibleConstructorReturn(this, (ChatPanel.__proto__ || Object.getPrototypeOf(ChatPanel)).call(this, props));
 
-    _this.state = {
-      userMsg: 'Enter Message',
-      messages: []
+        _this.state = {
+            userMsg: 'Enter Message',
+            messages: []
 
-      // bind methods
-    };_this.addMessage = _this.addMessage.bind(_this);
-    _this.handleMessageChange = _this.handleMessageChange.bind(_this);
-    return _this;
-  }
-
-  /** fetch bot json response from apiai
-   * @param String usermessage - get json response from api ai
-   */
-
-
-  _createClass(ChatPanel, [{
-    key: 'getBotMessage',
-    value: function getBotMessage(usermessage) {
-      return new Promise(function (resolve, reject) {
-        fetch('https://light-bot.herokuapp.com/botresponse?msg=' + usermessage, {
-          method: 'GET'
-        }).then(function (response) {
-          return response.json();
-        }).then(function (responseJSON) {
-          resolve(responseJSON);
-        });
-      });
+            // bind methods
+        };_this.addMessage = _this.addMessage.bind(_this);
+        _this.handleMessageChange = _this.handleMessageChange.bind(_this);
+        return _this;
     }
 
-    /** Add message to messages in state. After updating state, the DOM will
-     *  automatically update with the new message.
-     *  @param {event}
+    /** fetch bot json response from apiai
+     * @param String usermessage - get json response from api ai
      */
 
-  }, {
-    key: 'addMessage',
-    value: function addMessage(event) {
-      var _this2 = this;
 
-      // prevent default form submit
-      event.preventDefault();
-
-      // get current messages from state
-      var messages = this.state.messages;
-
-      // increment key by one
-      var key = messages.length > 0 ? messages[messages.length - 1].key + 1 : 0;
-
-      // create the new user message object
-      var newmessage = {
-        name: 'Me',
-        message: this.state.userMsg,
-        key: key
-      };
-
-      key = key + 1;
-
-      // get the bot message, then create bot message and set state to update
-      // dom with new message from bot
-      this.getBotMessage(newmessage.message).then(function (msg) {
-        var botmessage = {
-          name: 'LightBot',
-          message: msg.result.fulfillment.speech,
-          key: key
-        };
-
-        if (msg.result.metadata.intentName == "light_on") {
-          _this2.props.setLightStatus('light');
-        }
-
-        if (msg.result.metadata.intentName == "light_dim") {
-          _this2.props.setLightStatus('dim');
-        }
-        if (msg.result.metadata.intentName == "light_brighten") {
-          _this2.props.setLightStatus('brighten');
-        }
-
-        if (msg.result.metadata.intentName == "mood_sad") {
-          _this2.props.setLightStatus('sad');
-        }
-        if (msg.result.metadata.intentName == "mood_love") {
-          _this2.props.setLightStatus('love');
-        }
-        if (msg.result.metadata.intentName == "mood_happy") {
-          _this2.props.setLightStatus('happy');
-        }
-        if (msg.result.metadata.intentName == "mood_mad") {
-          _this2.props.setLightStatus('mad');
-        }
-        if (msg.result.metadata.intentName == "color_red") {
-          _this2.props.setLightStatus('red');
-        }
-        if (msg.result.metadata.intentName == "color_blue") {
-          _this2.props.setLightStatus('blue');
-        }
-        if (msg.result.metadata.intentName == "color_green") {
-          _this2.props.setLightStatus('green');
-        }
-        if (msg.result.metadata.intentName == "color_purple") {
-          _this2.props.setLightStatus('purple');
-        }
-        if (msg.result.metadata.intentName == "color_pink") {
-          _this2.props.setLightStatus('pink');
-        }
-        if (msg.result.metadata.intentName == "color_orange") {
-          _this2.props.setLightStatus('orange');
-        }
-        if (msg.result.metadata.intentName == "light_off") {
-          _this2.props.setLightStatus('dark');
-        }
-
-        // set the state with new user message and bot message
-        _this2.setState(function (prevState) {
-          return {
-            messages: [].concat(_toConsumableArray(prevState.messages), [newmessage, botmessage])
-          };
-        });
-      });
-    }
-
-    // update the message based on the text input field value
-
-  }, {
-    key: 'handleMessageChange',
-    value: function handleMessageChange(event) {
-      this.setState({
-        userMsg: event.target.value
-      });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'div',
-        { id: 'chat-panel', className: 'panel ' + this.props.lightStatus },
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'div',
-          { id: 'chat-box' },
-
-          // map the messages into Message componenents
-          this.state.messages.map(function (msg) {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_Message_jsx__["a" /* default */], {
-              key: msg.key,
-              name: msg.name,
-              message: msg.message
+    _createClass(ChatPanel, [{
+        key: 'getBotMessage',
+        value: function getBotMessage(usermessage) {
+            return new Promise(function (resolve, reject) {
+                fetch('https://light-bot.herokuapp.com/botresponse?msg=' + usermessage, {
+                    method: 'GET'
+                }).then(function (response) {
+                    return response.json();
+                }).then(function (responseJSON) {
+                    resolve(responseJSON);
+                });
             });
-          })
-        ),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-          'form',
-          {
-            name: 'message',
-            action: '',
-            onSubmit: this.addMessage },
-          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-            'div',
-            { id: 'submit-msg-wrapper' },
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-              name: 'user-msg',
-              type: 'text',
-              value: this.state.userMsg,
-              onChange: this.handleMessageChange,
-              id: 'user-msg'
-            }),
-            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
-              name: 'submit-msg',
-              type: 'submit',
-              id: 'submit-msg',
-              value: 'Send'
-            })
-          )
-        )
-      );
-    }
-  }]);
+        }
 
-  return ChatPanel;
+        /** Add message to messages in state. After updating state, the DOM will
+         *  automatically update with the new message.
+         *  @param {event}
+         */
+
+    }, {
+        key: 'addMessage',
+        value: function addMessage(event) {
+            var _this2 = this;
+
+            // prevent default form submit
+            event.preventDefault();
+
+            // get current messages from state
+            var messages = this.state.messages;
+
+            // increment key by one
+            var key = messages.length > 0 ? messages[messages.length - 1].key + 1 : 0;
+
+            // create the new user message object
+            var newmessage = {
+                name: 'Me',
+                message: this.state.userMsg,
+                key: key
+            };
+
+            key = key + 1;
+
+            // get the bot message, then create bot message and set state to update
+            // dom with new message from bot
+            this.getBotMessage(newmessage.message).then(function (msg) {
+                var botmessage = {
+                    name: 'LightBot',
+                    message: msg.result.fulfillment.speech,
+                    key: key
+                };
+
+                if (msg.result.metadata.intentName == "light_on") {
+                    _this2.props.setLightStatus('light');
+                }
+
+                if (msg.result.metadata.intentName == "light_dim") {
+                    _this2.props.setLightStatus('dim');
+                }
+                if (msg.result.metadata.intentName == "light_brighten") {
+                    _this2.props.setLightStatus('brighten');
+                }
+
+                if (msg.result.metadata.intentName == "light_off") {
+                    _this2.props.setLightStatus('dark');
+                }
+
+                if (msg.result.metadata.intentName == "light_color") {
+                    var colors = ["green", "red", "blue", "purple", "pink", "orange"];
+                    var color = msg.result.parameters.color;
+                    if (colors.indexOf(color) > -1) {
+                        _this2.props.setLightStatus(color);
+                    }
+                }
+                if (msg.result.metadata.intentName == "light_mood") {
+                    var moods = ["love", "happy", "mad", "sad"];
+                    var mood = msg.result.parameters.mood;
+                    if (moods.indexOf(mood) > -1) {
+                        _this2.props.setLightStatus(mood);
+                    }
+                }
+
+                // set the state with new user message and bot message
+                _this2.setState(function (prevState) {
+                    return {
+                        messages: [].concat(_toConsumableArray(prevState.messages), [newmessage, botmessage])
+                    };
+                });
+            });
+        }
+
+        // update the message based on the text input field value
+
+    }, {
+        key: 'handleMessageChange',
+        value: function handleMessageChange(event) {
+            this.setState({
+                userMsg: event.target.value
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                'div',
+                { id: 'chat-panel', className: 'panel ' + this.props.lightStatus },
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'div',
+                    { id: 'chat-box' },
+
+                    // map the messages into Message componenents
+                    this.state.messages.map(function (msg) {
+                        return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_Message_jsx__["a" /* default */], {
+                            key: msg.key,
+                            name: msg.name,
+                            message: msg.message
+                        });
+                    })
+                ),
+                __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                    'form',
+                    {
+                        name: 'message',
+                        action: '',
+                        onSubmit: this.addMessage },
+                    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+                        'div',
+                        { id: 'submit-msg-wrapper' },
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                            name: 'user-msg',
+                            type: 'text',
+                            value: this.state.userMsg,
+                            onChange: this.handleMessageChange,
+                            id: 'user-msg'
+                        }),
+                        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+                            name: 'submit-msg',
+                            type: 'submit',
+                            id: 'submit-msg',
+                            value: 'Send'
+                        })
+                    )
+                )
+            );
+        }
+    }]);
+
+    return ChatPanel;
 }(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
 
 ;
