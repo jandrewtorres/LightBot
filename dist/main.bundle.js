@@ -36889,7 +36889,7 @@ var ChatPanel = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (ChatPanel.__proto__ || Object.getPrototypeOf(ChatPanel)).call(this, props));
 
     _this.state = {
-      userMsg: 'Enter Message',
+      userMsg: '',
       messages: []
 
       // bind methods
@@ -36930,6 +36930,9 @@ var ChatPanel = function (_React$Component) {
       // prevent default form submit
       event.preventDefault();
 
+      this.setState({
+        userMsg: ''
+      });
       // get current messages from state
       var messages = this.state.messages;
 
@@ -37049,7 +37052,8 @@ var ChatPanel = function (_React$Component) {
               type: 'text',
               value: this.state.userMsg,
               onChange: this.handleMessageChange,
-              id: 'user-msg'
+              id: 'user-msg',
+              placeholder: 'Enter Message'
             }),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
               name: 'submit-msg',

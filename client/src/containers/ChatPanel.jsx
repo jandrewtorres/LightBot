@@ -15,7 +15,7 @@ class ChatPanel extends React.Component {
 
     // set state
     this.state = {
-      userMsg: 'Enter Message',
+      userMsg: '',
       messages: []
     }
 
@@ -48,6 +48,9 @@ class ChatPanel extends React.Component {
     // prevent default form submit
     event.preventDefault();
 
+    this.setState({
+      userMsg: ''
+    })
     // get current messages from state
     var messages = this.state.messages;
 
@@ -95,7 +98,6 @@ class ChatPanel extends React.Component {
           if (colors.indexOf(color) > -1) {
               this.props.setLightStatus(color);
           }
-
       }
       else if (msg.result.metadata.intentName == "light_mood") {
           var moods = ["love", "happy", "mad", "sad"];
@@ -119,7 +121,7 @@ class ChatPanel extends React.Component {
     });
   }
 
-  scrollToBottom () {
+  scrollToBottom() {
     const node = ReactDOM.findDOMNode(this.messagesEnd);
     node.scrollIntoView({behavior: "smooth"});
   }
@@ -162,6 +164,7 @@ class ChatPanel extends React.Component {
               value={ this.state.userMsg }
               onChange={ this.handleMessageChange }
               id="user-msg"
+              placeholder="Enter Message"
             />
             <input
               name="submit-msg"
