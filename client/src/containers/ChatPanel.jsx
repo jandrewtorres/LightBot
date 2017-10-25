@@ -74,52 +74,35 @@ class ChatPanel extends React.Component {
         key: key
       }
 
-      if(msg.result.metadata.intentName == "light_on") {
-        this.props.setLightStatus('light');
+      if (msg.result.metadata.intentName == "light_on") {
+          this.props.setLightStatus('light');
       }
 
-      if(msg.result.metadata.intentName == "light_dim") {
-        this.props.setLightStatus('dim');
+      else if (msg.result.metadata.intentName == "light_dim") {
+          this.props.setLightStatus('dim');
       }
-      if(msg.result.metadata.intentName == "light_brighten") {
-        this.props.setLightStatus('brighten');
-      }
-
-      if(msg.result.metadata.intentName == "mood_sad") {
-        this.props.setLightStatus('sad');
-      }
-      if(msg.result.metadata.intentName == "mood_love") {
-        this.props.setLightStatus('love');
-      }
-      if(msg.result.metadata.intentName == "mood_happy") {
-        this.props.setLightStatus('happy');
-      }
-      if(msg.result.metadata.intentName == "mood_mad") {
-        this.props.setLightStatus('mad');
-      }
-      if(msg.result.metadata.intentName == "color_red") {
-        this.props.setLightStatus('red');
-      }
-      if(msg.result.metadata.intentName == "color_blue") {
-        this.props.setLightStatus('blue');
-      }
-      if(msg.result.metadata.intentName == "color_green") {
-        this.props.setLightStatus('green');
-      }
-      if(msg.result.metadata.intentName == "color_purple") {
-        this.props.setLightStatus('purple');
-      }
-      if(msg.result.metadata.intentName == "color_pink") {
-        this.props.setLightStatus('pink');
-      }
-      if(msg.result.metadata.intentName == "color_orange") {
-        this.props.setLightStatus('orange');
-      }
-      if(msg.result.metadata.intentName == "light_off") {
-        this.props.setLightStatus('dark');
+      else if (msg.result.metadata.intentName == "light_brighten") {
+          this.props.setLightStatus('brighten');
       }
 
+      else if (msg.result.metadata.intentName == "light_off") {
+          this.props.setLightStatus('dark');
+      }
+      else if (msg.result.metadata.intentName == "light_color") {
+          var colors = ["green", "red", "blue", "purple", "pink", "orange"];
+          var color = msg.result.parameters.color;
+          if (colors.indexOf(color) > -1) {
+              this.props.setLightStatus(color);
+          }
 
+      }
+      else if (msg.result.metadata.intentName == "light_mood") {
+          var moods = ["love", "happy", "mad", "sad"];
+          var mood = msg.result.parameters.mood;
+          if (moods.indexOf(mood) > -1) {
+              this.props.setLightStatus(mood);
+          }
+      }
 
       // set the state with new user message and bot message
       this.setState(prevState => ({
