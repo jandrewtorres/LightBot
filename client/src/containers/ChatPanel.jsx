@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import Message from '../components/Message.jsx';
 import Auth from '../modules/Auth.js';
 
@@ -54,7 +55,7 @@ class ChatPanel extends React.Component {
     var key = messages.length > 0 ?
       messages[messages.length - 1].key + 1
       : 0;
-
+    console.log(key);
     // create the new user message object
     var newmessage = {
       name: 'Me',
@@ -63,7 +64,7 @@ class ChatPanel extends React.Component {
     };
 
     key = key + 1;
-
+    console.log(key);
     // get the bot message, then create bot message and set state to update
     // dom with new message from bot
     this.getBotMessage(newmessage.message)
@@ -118,6 +119,19 @@ class ChatPanel extends React.Component {
     });
   }
 
+  scrollToBottom () {
+    const node = ReactDOM.findDOMNode(this.messagesEnd);
+    node.scrollIntoView({behavior: "smooth"});
+  }
+
+  componentDidMount() {
+    this.scrollToBottom();
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
   render() {
     return (
       <div id='chat-panel' className={'panel ' + this.props.lightStatus}>
@@ -132,6 +146,9 @@ class ChatPanel extends React.Component {
               />
             ))
           }
+          <div style={{ float:"left", clear: "both" }}
+           ref={(el) => { this.messagesEnd = el; }}>
+          </div>
         </div>
         <form
           name="message"

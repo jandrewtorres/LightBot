@@ -36853,8 +36853,10 @@ var Dashboard = function Dashboard(_ref2) {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Message_jsx__ = __webpack_require__(260);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_Auth_js__ = __webpack_require__(25);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Message_jsx__ = __webpack_require__(260);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_Auth_js__ = __webpack_require__(25);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
@@ -36864,6 +36866,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
 
 
 
@@ -36932,7 +36935,7 @@ var ChatPanel = function (_React$Component) {
 
       // increment key by one
       var key = messages.length > 0 ? messages[messages.length - 1].key + 1 : 0;
-
+      console.log(key);
       // create the new user message object
       var newmessage = {
         name: 'Me',
@@ -36941,7 +36944,7 @@ var ChatPanel = function (_React$Component) {
       };
 
       key = key + 1;
-
+      console.log(key);
       // get the bot message, then create bot message and set state to update
       // dom with new message from bot
       this.getBotMessage(newmessage.message).then(function (msg) {
@@ -36992,8 +36995,26 @@ var ChatPanel = function (_React$Component) {
       });
     }
   }, {
+    key: 'scrollToBottom',
+    value: function scrollToBottom() {
+      var node = __WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.findDOMNode(this.messagesEnd);
+      node.scrollIntoView({ behavior: "smooth" });
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.scrollToBottom();
+    }
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      this.scrollToBottom();
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this3 = this;
+
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'div',
         { id: 'chat-panel', className: 'panel ' + this.props.lightStatus },
@@ -37003,12 +37024,16 @@ var ChatPanel = function (_React$Component) {
 
           // map the messages into Message componenents
           this.state.messages.map(function (msg) {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__components_Message_jsx__["a" /* default */], {
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Message_jsx__["a" /* default */], {
               key: msg.key,
               name: msg.name,
               message: msg.message
             });
-          })
+          }),
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('div', { style: { float: "left", clear: "both" },
+            ref: function ref(el) {
+              _this3.messagesEnd = el;
+            } })
         ),
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'form',
