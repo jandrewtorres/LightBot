@@ -25,7 +25,7 @@ app.use(express.static('./images'));
 
 // tell the app to parse HTTP body messages
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(bodyParser.json());
 // use the passportJS authentication middleware
 app.use(passport.initialize());
 
@@ -63,6 +63,10 @@ app.get('/botresponse', function(req, res) {
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './dist/index.html'))
 })
+
+app.post('/submitfeedback', function (req, res) {
+    console.log(req.body);
+});
 
 // Run Express server, either on heroku port or local 8082
 app.listen(process.env.PORT || 8082, () => {

@@ -1,0 +1,33 @@
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.feedback-line {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.feedback-tall {
+  height: 200px;
+}
+
+.feedback-submit {
+  border: none;
+  font-size: 1.5em;
+  font-style: bold;
+}
+
+.feedback-close {
+  border: none;
+  font-style: bold;
+  color: white;
+  background-color: darkred;
+  font-size: 1.5em;
+}

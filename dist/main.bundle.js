@@ -36757,6 +36757,11 @@ var DashboardPage = function (_React$Component) {
       });
     };
 
+    _this.handleFeedbackSubmit = function (event) {
+      event.preventDefault();
+      console.log(feedback);
+    };
+
     _this.state = {
       lightStatus: 'dark',
       isFeedbackModalOpen: false
@@ -36810,6 +36815,7 @@ var DashboardPage = function (_React$Component) {
     key: 'render',
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Dashboard_jsx__["a" /* default */], {
+        handleFeedbackSubmit: this.handleFeedbackSubmit,
         isModalOpen: this.state.isFeedbackModalOpen,
         toggleModal: this.toggleModal,
         lightStatus: this.state.lightStatus,
@@ -36832,6 +36838,8 @@ var DashboardPage = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__containers_ChatPanel_jsx__ = __webpack_require__(259);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_jsx__ = __webpack_require__(308);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__FeedbackForm_jsx__ = __webpack_require__(309);
+
 
 
 
@@ -36844,17 +36852,28 @@ var LightBulbPanel = function LightBulbPanel(_ref) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
     { id: 'lightbulb-panel', className: "panel " + lightStatus },
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: defaultLightbulb }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'button',
-      { onClick: toggleModal },
-      'Submit Feedback'
+      'div',
+      { id: 'bulb-wrapper' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: defaultLightbulb })
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'div',
+      { id: 'submit-msg-wrapper' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'button',
+        {
+          id: 'submit-msg-feedback',
+          onClick: toggleModal },
+        'Submit Feedback'
+      )
     )
   );
 };
 
 var Dashboard = function Dashboard(_ref2) {
-  var isModalOpen = _ref2.isModalOpen,
+  var handleFeedbackSubmit = _ref2.handleFeedbackSubmit,
+      isModalOpen = _ref2.isModalOpen,
       toggleModal = _ref2.toggleModal,
       lightStatus = _ref2.lightStatus,
       setLightStatus = _ref2.setLightStatus;
@@ -36868,9 +36887,9 @@ var Dashboard = function Dashboard(_ref2) {
         onClose: toggleModal
       },
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-        'p',
-        null,
-        ' Modal Content'
+        'div',
+        { className: 'modal-content' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__FeedbackForm_jsx__["a" /* default */], null)
       )
     ),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_ChatPanel_jsx__["a" /* default */], {
@@ -42387,7 +42406,9 @@ var Modal = function (_React$Component) {
             { className: 'footer' },
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
               'button',
-              { onClick: this.props.onClose },
+              {
+                className: 'feedback-line feedback-close',
+                onClick: this.props.onClose },
               'Close'
             )
           )
@@ -42406,6 +42427,153 @@ Modal.propTypes = {
 };
 
 /* harmony default export */ __webpack_exports__["a"] = (Modal);
+
+/***/ }),
+/* 309 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var FeedbackForm = function (_Component) {
+  _inherits(FeedbackForm, _Component);
+
+  function FeedbackForm() {
+    _classCallCheck(this, FeedbackForm);
+
+    var _this = _possibleConstructorReturn(this, (FeedbackForm.__proto__ || Object.getPrototypeOf(FeedbackForm)).call(this));
+
+    _this.onChange = function (e) {
+      // Because we named the inputs to match their corresponding values in state, it's
+      // super easy to update the state
+      var state = _this.state;
+      state[e.target.name] = e.target.value;
+      _this.setState(state);
+    };
+
+    _this.handleSubmit = function (event) {
+      event.preventDefault();
+
+      fetch('/submitfeedback', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: _this.state.email,
+          fname: _this.state.fname,
+          lname: _this.state.lname,
+          feedback: _this.state.feedback
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (responseJson) {
+        if (responseJson.success) {
+          _this.setState({ formSent: true });
+        } else _this.setState({ formSent: false });
+      }).catch(function (error) {
+        console.error(error);
+      });
+    };
+
+    _this.state = {
+      fname: '',
+      lname: '',
+      email: '',
+      feedback: ''
+    };
+    return _this;
+  }
+
+  _createClass(FeedbackForm, [{
+    key: 'render',
+    value: function render() {
+      var _state = this.state,
+          fname = _state.fname,
+          lname = _state.lname,
+          email = _state.email,
+          feedback = _state.feedback;
+
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'form',
+        {
+          className: 'feedback-form',
+          onSubmit: this.handleSubmit
+        },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'p',
+          { className: 'feedback-line' },
+          'First Name:'
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+          className: 'feedback-line',
+          type: 'text',
+          name: 'fname',
+          value: fname,
+          onChange: this.onChange
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'p',
+          { className: 'feedback-line' },
+          'Last Name:'
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+          className: 'feedback-line',
+          type: 'text',
+          name: 'lname',
+          value: lname,
+          onChange: this.onChange
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'p',
+          { className: 'feedback-line' },
+          'Email address:'
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+          className: 'feedback-line',
+          type: 'text',
+          name: 'email',
+          value: email,
+          onChange: this.onChange
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'p',
+          { className: 'feedback-line' },
+          'Feedback:'
+        ),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+          className: 'feedback-line',
+          type: 'text',
+          name: 'feedback',
+          value: feedback,
+          onChange: this.onChange
+        }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', {
+          className: 'feedback-submit feedback-line',
+          name: 'submit-feedback',
+          type: 'submit',
+          id: 'submit-feedback',
+          value: 'Send Feedback'
+        })
+      );
+    }
+  }]);
+
+  return FeedbackForm;
+}(__WEBPACK_IMPORTED_MODULE_0_react__["Component"]);
+
+/* harmony default export */ __webpack_exports__["a"] = (FeedbackForm);
 
 /***/ })
 /******/ ]);
