@@ -42491,7 +42491,8 @@ var FeedbackForm = function (_Component) {
       fname: '',
       lname: '',
       email: '',
-      feedback: ''
+      feedback: '',
+      formSent: false
     };
     return _this;
   }
@@ -42503,7 +42504,8 @@ var FeedbackForm = function (_Component) {
           fname = _state.fname,
           lname = _state.lname,
           email = _state.email,
-          feedback = _state.feedback;
+          feedback = _state.feedback,
+          formSent = _state.formSent;
 
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'form',

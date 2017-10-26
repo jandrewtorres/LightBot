@@ -8,11 +8,13 @@ const config = require('./config');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
+var Feedback = require('./server/models/feedback.js');
 // connect to mongo database and load models
 require('./server/models').connect(config.dbUri, {
 	useMongoClient: true,
 });
+
+
 
 const app = express();
 
@@ -66,6 +68,18 @@ app.get('*', (req, res) => {
 
 app.post('/submitfeedback', function (req, res) {
     console.log(req.body);
+		var feedbackInstance = new Feedback({
+			email: req.body.email,
+			firstName: req.body.fname,
+			lastName: req.body.lname,
+			feedback: req.body.feedback
+		})
+
+		feedbackInstance.save(function(err) {
+			if(err) throw err;
+
+			console.log('Feeback saved successfully!');
+		})
 });
 
 // Run Express server, either on heroku port or local 8082

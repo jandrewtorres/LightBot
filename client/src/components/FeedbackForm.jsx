@@ -7,7 +7,8 @@ class FeedbackForm extends Component {
       fname: '',
       lname: '',
       email: '',
-      feedback: ''
+      feedback: '',
+      formSent: false
     };
   }
 
@@ -48,7 +49,7 @@ class FeedbackForm extends Component {
   }
 
   render() {
-    const { fname, lname, email, feedback } = this.state;
+    const { fname, lname, email, feedback, formSent } = this.state;
     return (
       <form
         className="feedback-form"
