@@ -36751,21 +36751,28 @@ var DashboardPage = function (_React$Component) {
     // set state
     var _this = _possibleConstructorReturn(this, (DashboardPage.__proto__ || Object.getPrototypeOf(DashboardPage)).call(this, props));
 
+    _this.toggleModal = function () {
+      _this.setState({
+        isFeedbackModalOpen: !_this.state.isFeedbackModalOpen
+      });
+    };
+
     _this.state = {
-      lightStatus: 'dark'
+      lightStatus: 'dark',
+      isFeedbackModalOpen: false
     };
 
     _this.setLightStatus = _this.setLightStatus.bind(_this);
     return _this;
   }
 
-  /**
-   * This method will be executed after initial rendering.
-   */
-
-
   _createClass(DashboardPage, [{
     key: 'componentDidMount',
+
+
+    /**
+     * This method will be executed after initial rendering.
+     */
     value: function componentDidMount() {
       var _this2 = this;
 
@@ -36802,7 +36809,12 @@ var DashboardPage = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Dashboard_jsx__["a" /* default */], { lightStatus: this.state.lightStatus, setLightStatus: this.setLightStatus });
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Dashboard_jsx__["a" /* default */], {
+        isModalOpen: this.state.isFeedbackModalOpen,
+        toggleModal: this.toggleModal,
+        lightStatus: this.state.lightStatus,
+        setLightStatus: this.setLightStatus
+      });
     }
   }]);
 
@@ -36819,28 +36831,56 @@ var DashboardPage = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__containers_ChatPanel_jsx__ = __webpack_require__(259);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_jsx__ = __webpack_require__(308);
+
 
 
 
 var defaultLightbulb = __webpack_require__(261);
 
 var LightBulbPanel = function LightBulbPanel(_ref) {
-  var lightStatus = _ref.lightStatus;
+  var lightStatus = _ref.lightStatus,
+      toggleModal = _ref.toggleModal;
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
     { id: 'lightbulb-panel', className: "panel " + lightStatus },
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: defaultLightbulb })
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: defaultLightbulb }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'button',
+      { onClick: toggleModal },
+      'Submit Feedback'
+    )
   );
 };
 
 var Dashboard = function Dashboard(_ref2) {
-  var lightStatus = _ref2.lightStatus,
+  var isModalOpen = _ref2.isModalOpen,
+      toggleModal = _ref2.toggleModal,
+      lightStatus = _ref2.lightStatus,
       setLightStatus = _ref2.setLightStatus;
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
     { className: 'panel-wrapper' },
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_ChatPanel_jsx__["a" /* default */], { lightStatus: lightStatus, setLightStatus: setLightStatus }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(LightBulbPanel, { lightStatus: lightStatus })
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      __WEBPACK_IMPORTED_MODULE_2__Modal_jsx__["a" /* default */],
+      {
+        show: isModalOpen,
+        onClose: toggleModal
+      },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'p',
+        null,
+        ' Modal Content'
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__containers_ChatPanel_jsx__["a" /* default */], {
+      lightStatus: lightStatus,
+      setLightStatus: setLightStatus
+    }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(LightBulbPanel, {
+      lightStatus: lightStatus,
+      toggleModal: toggleModal
+    })
   );
 };
 
@@ -42272,6 +42312,100 @@ function addEventPoolingTo(EventConstructor) {
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_prop_types__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+
+var Modal = function (_React$Component) {
+  _inherits(Modal, _React$Component);
+
+  function Modal() {
+    _classCallCheck(this, Modal);
+
+    return _possibleConstructorReturn(this, (Modal.__proto__ || Object.getPrototypeOf(Modal)).apply(this, arguments));
+  }
+
+  _createClass(Modal, [{
+    key: 'render',
+    value: function render() {
+      // Render nothing if the "show" prop is false
+      if (!this.props.show) {
+        return null;
+      }
+
+      // The gray background
+      var backdropStyle = {
+        position: 'fixed',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: 'rgba(0,0,0,0.3)',
+        padding: 50
+      };
+
+      // The modal "window"
+      var modalStyle = {
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        maxWidth: 500,
+        minHeight: 300,
+        margin: '0 auto',
+        padding: 30
+      };
+
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'backdrop', style: backdropStyle },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+          'div',
+          { className: 'modal', style: modalStyle },
+          this.props.children,
+          __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+            'div',
+            { className: 'footer' },
+            __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+              'button',
+              { onClick: this.props.onClose },
+              'Close'
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return Modal;
+}(__WEBPACK_IMPORTED_MODULE_0_react___default.a.Component);
+
+Modal.propTypes = {
+  onClose: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.func.isRequired,
+  show: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.bool,
+  children: __WEBPACK_IMPORTED_MODULE_1_prop_types___default.a.node
+};
+
+/* harmony default export */ __webpack_exports__["a"] = (Modal);
 
 /***/ })
 /******/ ]);

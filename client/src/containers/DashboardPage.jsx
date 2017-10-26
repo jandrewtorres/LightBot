@@ -12,10 +12,17 @@ class DashboardPage extends React.Component {
 
     // set state
     this.state = {
-      lightStatus: 'dark'
+      lightStatus: 'dark',
+      isFeedbackModalOpen: false
     }
 
     this.setLightStatus = this.setLightStatus.bind(this);
+  }
+
+  toggleModal = () => {
+    this.setState({
+      isFeedbackModalOpen: !this.state.isFeedbackModalOpen
+    });
   }
 
   /**
@@ -49,7 +56,13 @@ class DashboardPage extends React.Component {
    * Render the component.
    */
   render() {
-    return (<Dashboard lightStatus={this.state.lightStatus} setLightStatus={this.setLightStatus}/>);
+    return (
+      <Dashboard
+        isModalOpen={this.state.isFeedbackModalOpen}
+        toggleModal={this.toggleModal}
+        lightStatus={this.state.lightStatus}
+        setLightStatus={this.setLightStatus}
+      />);
   }
 
 }
