@@ -62,13 +62,18 @@ class DashboardPage extends React.Component {
    */
   render() {
     return (
-      <Dashboard
-        handleFeedbackSubmit={this.handleFeedbackSubmit}
-        isModalOpen={this.state.isFeedbackModalOpen}
-        toggleModal={this.toggleModal}
-        lightStatus={this.state.lightStatus}
-        setLightStatus={this.setLightStatus}
-      />);
+        <div>
+
+          <Dashboard
+              handleFeedbackSubmit={this.handleFeedbackSubmit}
+              isModalOpen={this.state.isFeedbackModalOpen}
+              toggleModal={this.toggleModal}
+              lightStatus={this.state.lightStatus}
+              setLightStatus={this.setLightStatus}
+              context={this}
+          />
+        </div>);
+
   }
 
 }
