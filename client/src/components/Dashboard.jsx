@@ -2,25 +2,12 @@ import React from 'react';
 import ChatPanel from '../containers/ChatPanel.jsx';
 import Modal from './Modal.jsx';
 import FeedbackForm from './FeedbackForm.jsx';
+import Select from 'react-select-plus';
+import 'react-select-plus/dist/react-select-plus.css';
+import LightBulbPanel from '../containers/LightBulbPanel.jsx';
 
-const defaultLightbulb = require('../../../images/lightbulb.png');
-
-const LightBulbPanel = ({lightStatus, toggleModal}) => (
-  <div id="lightbulb-panel" className={"panel " + lightStatus}>
-    <div id="bulb-wrapper">
-      <img src={ defaultLightbulb }  />
-    </div>
-    <div id="submit-msg-wrapper">
-      <button
-        id='submit-msg-feedback'
-        onClick={toggleModal}>
-        Submit Feedback
-      </button>
-    </div>
-  </div>
-);
-
-const Dashboard = ({handleFeedbackSubmit, isModalOpen, toggleModal, lightStatus, setLightStatus}) => (
+const Dashboard = ({handleFeedbackSubmit, isModalOpen, toggleModal, lightStatus,
+  setLightStatus, messages, addMessage}) => (
   <div className='panel-wrapper'>
     <Modal
       show={isModalOpen}
@@ -33,10 +20,13 @@ const Dashboard = ({handleFeedbackSubmit, isModalOpen, toggleModal, lightStatus,
     <ChatPanel
       lightStatus={lightStatus}
       setLightStatus={setLightStatus}
+      messages={messages}
+      addMessage={addMessage}
     />
     <LightBulbPanel
       lightStatus={lightStatus}
       toggleModal={toggleModal}
+      setLightStatus={setLightStatus}
     />
   </div>
 );

@@ -41,6 +41,7 @@
     "prop-types": "^15.6.0",
     "react-router-config": "^1.0.0-beta.4",
     "react-router-dom": "^4.2.2",
+    "react-select-plus": "^1.0.0-rc.10",
     "react-tap-event-plugin": "^3.0.2",
     "validator": "^9.0.0"
   },
