@@ -36,6 +36,19 @@ class Auth {
     return localStorage.getItem('token');
   }
 
+  static getUserJSON() {
+    var token = Auth.getToken();
+    return new Promise(function(resolve, reject) {
+      fetch('https://light-bot.herokuapp.com/curruser?token=' + token, {
+        method: 'GET'
+      })
+      .then((response) => response.json())
+      .then((responseJSON) => {
+        resolve(responseJSON);
+      })
+    });
+  }
+
 }
 
 export default Auth;

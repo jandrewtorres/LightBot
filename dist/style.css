@@ -403,7 +403,8 @@
     #title-bar .top-bar-left a {
       text-decoration: none; }
   #title-bar .top-bar-right {
-    float: right; }
+    float: right;
+    display: flex; }
   #title-bar .top-bar-right-item {
     margin-right: 1em; }
   #title-bar a {

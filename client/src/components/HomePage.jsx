@@ -3,8 +3,13 @@ import React from 'react';
 import { Card, CardTitle } from 'material-ui/Card';
 import Auth from '../modules/Auth';
 import DashboardPage from '../containers/DashboardPage.jsx';
+const jwt = require('jsonwebtoken');
+import config from '../../../config';
 
 class HomePage extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
   render() {
     return (
@@ -15,7 +20,7 @@ class HomePage extends React.Component {
               <CardTitle title="LightBot" subtitle="An intelligent light" />
             </Card>
           ) : (
-            <DashboardPage/>
+            <DashboardPage userJSON={this.props.userJSON}/>
           )
         }
       </div>

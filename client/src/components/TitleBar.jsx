@@ -14,7 +14,12 @@ class TitleBar extends React.Component {
       signupText: 'Sign up',
       userWelcomeText: 'Hello ',
       redirect: false,
+      userJSON: ''
     };
+
+    this.props.userJSON.then(value => {
+      this.setState({userJSON: value})
+    })
 
     // bind class methods
     this.onLogOutClicked = this.onLogOutClicked.bind(this);
@@ -29,21 +34,26 @@ class TitleBar extends React.Component {
   // render the top bar based on user authentication status
   render() {
     return (
-    <div id="title-bar">
-        <div className="top-bar-left">
-              <Link to="/">{this.state.SiteText}</Link>
-              {false ? this.state.userWelcomeText : ''}
-              <Link to="/" />
-        </div>
 
-        {Auth.isUserAuthenticated() ? (
-          <Link className='top-bar-right-item' to="/login" onClick={this.onLogOutClicked}>Log out</Link>
+    <div id="title-bar">
+
+      <div className="top-bar-left">
+        <Link to="/">{this.state.SiteText}</Link>
+        {false ? this.state.userWelcomeText : ''}
+        <Link to="/" />
+      </div>
+
+      {Auth.isUserAuthenticated() ? (
+        <div className='top-bar-right'>
+        <div className='top-bar-right-item'>{this.state.userJSON.name}</div>
+        <Link className='top-bar-right-item' to="/login" onClick={this.onLogOutClicked}>Log out</Link>
+        </div>
         ) : (
-          <div className="top-bar-right">
-                   <Link className='top-bar-right-item' to="/login">{this.state.loginText}</Link>
-                  <Link className='top-bar-right-item' to="/signup">{this.state.signupText}</Link>
-          </div>
-        )}
+        <div className="top-bar-right">
+          <Link className='top-bar-right-item' to="/login">{this.state.loginText}</Link>
+          <Link className='top-bar-right-item' to="/signup">{this.state.signupText}</Link>
+        </div>
+      )}
 
     </div>
     );

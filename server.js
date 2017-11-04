@@ -14,7 +14,8 @@ require('./server/models').connect(config.dbUri, {
 	useMongoClient: true,
 });
 
-
+const jwt = require('jsonwebtoken');
+const User = require('mongoose').model('User');
 
 const app = express();
 
@@ -60,14 +61,7 @@ app.get('/botresponse', function(req, res) {
 	console.log("Request made: " + msg);
 });
 
-// Serves the index.html page for all routes to allow for pretty URLS
-// and enables page refresh
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, './dist/index.html'))
-})
-
 app.post('/submitfeedback', function (req, res) {
-    console.log(req.body);
 		var feedbackInstance = new Feedback({
 			email: req.body.email,
 			firstName: req.body.fname,
@@ -77,9 +71,69 @@ app.post('/submitfeedback', function (req, res) {
 
 		feedbackInstance.save(function(err) {
 			if(err) throw err;
-
-			console.log('Feeback saved successfully!');
 		})
+});
+
+app.get('/curruser', (req, res) => {
+	var token = req.query.token;
+	jwt.verify(token, config.jwtSecret, (err, decoded) => {
+    // the 401 code is for unauthorized status
+		console.log(decoded);
+    if (err) { return res.status(401).end(); }
+
+    const userId = decoded.sub;
+		console.log(userId);
+    // check if a user exists
+    User.findById(userId, (userErr, user) => {
+			console.log(user);
+      if (userErr || !user) {
+        return res.status(401).end();
+      }
+
+      res.json(user);
+    });
+  });
+});
+
+app.get('/savemsg', (req, res) => {
+	var intent = req.query.intent;
+	console.log(intent);
+	var intentColor = req.query.intentColor;
+	console.log(intentColor);
+	var date = new Date();
+	var dayOfMonth = date.getDate();
+	var dayOfWeek = date.getDay();
+	var hour = date.getHours();
+	var minutes = date.getMinutes();
+	var month = date.getMonth();
+
+	var userID = req.query.userID;
+	User.findById(userID, (userErr, user) => {
+		if(userErr || !user) {
+			return res.status(401).end();
+		}
+		user.actionHistory || (user.actionHistory = [])
+		user.actionHistory.push({
+			intent: intent,
+			intentColor: intentColor,
+			dayOfMonth: dayOfMonth,
+			dayOfWeek: dayOfWeek,
+			hour: hour,
+			minutes: minutes,
+			month: month
+		});
+
+		user.save(function(err) {
+			if(err) throw err;
+		});
+		res.end();
+	});
+});
+
+// Serves the index.html page for all routes to allow for pretty URLS
+// and enables page refresh
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './dist/index.html'))
 });
 
 // Run Express server, either on heroku port or local 8082

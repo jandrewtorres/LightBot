@@ -8,7 +8,20 @@ const UserSchema = new mongoose.Schema({
     index: { unique: true }
   },
   password: String,
-  name: String
+  name: String,
+  actionHistory: [
+    {
+      intent: String,
+      intentColor: String,
+      dayOfMonth: Number,
+      dayOfWeek: Number,
+      hour: Number,
+      minutes: Number,
+      month: Number
+    }
+  ]
+}, {
+  versionKey: false
 });
 
 

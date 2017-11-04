@@ -9,12 +9,12 @@ class DashboardPage extends React.Component {
    */
   constructor(props) {
     super(props);
-
     // set state
     this.state = {
       lightStatus: 'dark',
       isFeedbackModalOpen: false,
-      messages: []
+      messages: [],
+      msgKey: 0
     }
 
     this.addMessage = this.addMessage.bind(this);
@@ -24,7 +24,7 @@ class DashboardPage extends React.Component {
   /** fetch bot json response from apiai
    * @param String usermessage - get json response from api ai
    */
-  getBotMessage(usermessage) {
+  fetchBotMessage(usermessage) {
     return new Promise(function(resolve, reject) {
       fetch('https://light-bot.herokuapp.com/botresponse?msg=' + usermessage, {
         method: 'GET'
@@ -34,7 +34,64 @@ class DashboardPage extends React.Component {
         resolve(responseJSON);
       })
     });
+  }
 
+  setLightStatusByIntent(msg) {
+    if (msg.result.metadata.intentName == "light_on") {
+        this.setLightStatus('light');
+    }
+
+    else if (msg.result.metadata.intentName == "light_dim") {
+        this.setLightStatus('dim');
+    }
+    else if (msg.result.metadata.intentName == "light_brighten") {
+        this.setLightStatus('brighten');
+    }
+
+    else if (msg.result.metadata.intentName == "light_off") {
+        this.setLightStatus('dark');
+    }
+    else if (msg.result.metadata.intentName == "light_color") {
+        var colors = ["green", "red", "blue", "purple", "pink", "orange"];
+        var color = msg.result.parameters.color;
+        if (colors.indexOf(color) > -1) {
+            this.setLightStatus(color);
+        }
+    }
+    else if (msg.result.metadata.intentName == "light_mood") {
+        var moods = ["love", "happy", "mad", "sad"];
+        var mood = msg.result.parameters.mood;
+        if (moods.indexOf(mood) > -1) {
+            this.setLightStatus(mood);
+        }
+    }
+  }
+
+  /*saveUserAction(msg) {
+    fetch()
+  }*/
+
+  addBotMessage(userMessage) {
+    // get the bot message, then create bot message and set state to update
+    // dom with new message from bot
+    this.fetchBotMessage(userMessage)
+    .then((msg) => {
+      var botmessage = {
+        name: 'LightBot',
+        message: msg.result.fulfillment.speech,
+        key: this.state.msgKey
+      }
+
+      this.setLightStatusByIntent(msg);
+
+      // set the state with new user message and bot message
+      this.setState(prevState => ({
+        messages: [...prevState.messages, botmessage],
+        msgKey: prevState.msgKey + 1
+      }));
+
+      // saveUserAction(msg);
+    });
   }
 
   /** Add message to messages in state. After updating state, the DOM will
@@ -42,68 +99,22 @@ class DashboardPage extends React.Component {
    *  @param {event}
    */
   addMessage(usrMessage) {
-
     // get current messages from state
     var messages = this.state.messages;
 
-    // increment key by one
-    var key = messages.length > 0 ?
-      messages[messages.length - 1].key + 1
-      : 0;
-    console.log(key);
     // create the new user message object
     var newmessage = {
       name: 'Me',
       message: usrMessage,
-      key: key
+      key: this.state.msgKey
     };
 
-    key = key + 1;
-    console.log(key);
-    // get the bot message, then create bot message and set state to update
-    // dom with new message from bot
-    this.getBotMessage(newmessage.message)
-    .then((msg) => {
-      var botmessage = {
-        name: 'LightBot',
-        message: msg.result.fulfillment.speech,
-        key: key
-      }
+    this.setState(prevState => ({
+      messages: [...prevState.messages, newmessage],
+      msgKey: prevState.msgKey + 1
+    }), this.addBotMessage(usrMessage));
 
-      if (msg.result.metadata.intentName == "light_on") {
-          this.setLightStatus('light');
-      }
 
-      else if (msg.result.metadata.intentName == "light_dim") {
-          this.setLightStatus('dim');
-      }
-      else if (msg.result.metadata.intentName == "light_brighten") {
-          this.setLightStatus('brighten');
-      }
-
-      else if (msg.result.metadata.intentName == "light_off") {
-          this.setLightStatus('dark');
-      }
-      else if (msg.result.metadata.intentName == "light_color") {
-          var colors = ["green", "red", "blue", "purple", "pink", "orange"];
-          var color = msg.result.parameters.color;
-          if (colors.indexOf(color) > -1) {
-              this.setLightStatus(color);
-          }
-      }
-      else if (msg.result.metadata.intentName == "light_mood") {
-          var moods = ["love", "happy", "mad", "sad"];
-          var mood = msg.result.parameters.mood;
-          if (moods.indexOf(mood) > -1) {
-              this.setLightStatus(mood);
-          }
-      }
-
-      // set the state with new user message and bot message
-      this.setState(prevState => ({
-        messages: [...prevState.messages, newmessage, botmessage]
-      }));
-    })
   }
 
   toggleModal = () => {
