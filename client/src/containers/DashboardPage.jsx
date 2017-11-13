@@ -14,8 +14,13 @@ class DashboardPage extends React.Component {
       lightStatus: 'dark',
       isFeedbackModalOpen: false,
       messages: [],
-      msgKey: 0
+      msgKey: 0,
+      userJSON: ''
     }
+
+    this.props.userJSON.then(value => {
+      this.setState({userJSON: value})
+    })
 
     this.addMessage = this.addMessage.bind(this);
     this.setLightStatus = this.setLightStatus.bind(this);
@@ -67,9 +72,24 @@ class DashboardPage extends React.Component {
     }
   }
 
-  /*saveUserAction(msg) {
-    fetch()
-  }*/
+  saveUserAction(msg) {
+    var color = msg.result.parameters.color != 'undefined' ? msg.result.parameters.color : 'none';
+    var intentName = msg.result.metadata.intentName;
+    var userId = this.state.userJSON._id;
+
+    fetch('https://light-bot.herokuapp.com/saveuseraction', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        intent: intentName,
+        intentColor: color,
+        userId: userId
+      })
+    });
+  }
 
   addBotMessage(userMessage) {
     // get the bot message, then create bot message and set state to update
@@ -90,7 +110,7 @@ class DashboardPage extends React.Component {
         msgKey: prevState.msgKey + 1
       }));
 
-      // saveUserAction(msg);
+      this.saveUserAction(msg);
     });
   }
 
@@ -113,8 +133,6 @@ class DashboardPage extends React.Component {
       messages: [...prevState.messages, newmessage],
       msgKey: prevState.msgKey + 1
     }), this.addBotMessage(usrMessage));
-
-
   }
 
   toggleModal = () => {

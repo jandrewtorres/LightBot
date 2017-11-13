@@ -78,27 +78,24 @@ app.get('/curruser', (req, res) => {
 	var token = req.query.token;
 	jwt.verify(token, config.jwtSecret, (err, decoded) => {
     // the 401 code is for unauthorized status
-		console.log(decoded);
     if (err) { return res.status(401).end(); }
 
     const userId = decoded.sub;
-		console.log(userId);
+
     // check if a user exists
     User.findById(userId, (userErr, user) => {
-			console.log(user);
       if (userErr || !user) {
         return res.status(401).end();
       }
-
       res.json(user);
     });
   });
 });
 
-app.get('/savemsg', (req, res) => {
-	var intent = req.query.intent;
+app.post('/saveuseraction', (req, res) => {
+	var intent = req.body.intent;
 	console.log(intent);
-	var intentColor = req.query.intentColor;
+	var intentColor = req.body.intentColor;
 	console.log(intentColor);
 	var date = new Date();
 	var dayOfMonth = date.getDate();
@@ -107,8 +104,9 @@ app.get('/savemsg', (req, res) => {
 	var minutes = date.getMinutes();
 	var month = date.getMonth();
 
-	var userID = req.query.userID;
-	User.findById(userID, (userErr, user) => {
+	var userId= req.body.userId;
+	console.log(userId);
+	User.findById(userId, (userErr, user) => {
 		if(userErr || !user) {
 			return res.status(401).end();
 		}

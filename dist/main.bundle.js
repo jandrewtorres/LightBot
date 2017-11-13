@@ -53006,8 +53006,13 @@ var DashboardPage = function (_React$Component) {
       lightStatus: 'dark',
       isFeedbackModalOpen: false,
       messages: [],
-      msgKey: 0
+      msgKey: 0,
+      userJSON: ''
     };
+
+    _this.props.userJSON.then(function (value) {
+      _this.setState({ userJSON: value });
+    });
 
     _this.addMessage = _this.addMessage.bind(_this);
     _this.setLightStatus = _this.setLightStatus.bind(_this);
@@ -53057,11 +53062,26 @@ var DashboardPage = function (_React$Component) {
         }
       }
     }
+  }, {
+    key: 'saveUserAction',
+    value: function saveUserAction(msg) {
+      var color = msg.result.parameters.color != 'undefined' ? msg.result.parameters.color : 'none';
+      var intentName = msg.result.metadata.intentName;
+      var userId = this.state.userJSON._id;
 
-    /*saveUserAction(msg) {
-      fetch()
-    }*/
-
+      fetch('https://light-bot.herokuapp.com/saveuseraction', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          intent: intentName,
+          intentColor: color,
+          userId: userId
+        })
+      });
+    }
   }, {
     key: 'addBotMessage',
     value: function addBotMessage(userMessage) {
@@ -53086,7 +53106,7 @@ var DashboardPage = function (_React$Component) {
           };
         });
 
-        // saveUserAction(msg);
+        _this2.saveUserAction(msg);
       });
     }
 
