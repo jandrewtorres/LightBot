@@ -123,11 +123,6 @@ class DashboardPage extends React.Component {
     });
   }
 
-  handleFeedbackSubmit = (event) => {
-    event.preventDefault();
-    console.log(feedback);
-  }
-
   /**
    * This method will be executed after initial rendering.
    */
@@ -161,7 +156,6 @@ class DashboardPage extends React.Component {
   render() {
     return (
       <Dashboard
-        handleFeedbackSubmit={this.handleFeedbackSubmit}
         isModalOpen={this.state.isFeedbackModalOpen}
         toggleModal={this.toggleModal}
         lightStatus={this.state.lightStatus}

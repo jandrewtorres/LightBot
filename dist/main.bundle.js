@@ -53002,11 +53002,6 @@ var DashboardPage = function (_React$Component) {
       });
     };
 
-    _this.handleFeedbackSubmit = function (event) {
-      event.preventDefault();
-      console.log(feedback);
-    };
-
     _this.state = {
       lightStatus: 'dark',
       isFeedbackModalOpen: false,
@@ -53164,7 +53159,6 @@ var DashboardPage = function (_React$Component) {
     key: 'render',
     value: function render() {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_2__components_Dashboard_jsx__["a" /* default */], {
-        handleFeedbackSubmit: this.handleFeedbackSubmit,
         isModalOpen: this.state.isFeedbackModalOpen,
         toggleModal: this.toggleModal,
         lightStatus: this.state.lightStatus,
@@ -53190,12 +53184,9 @@ var DashboardPage = function (_React$Component) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__containers_ChatPanel_jsx__ = __webpack_require__(349);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Modal_jsx__ = __webpack_require__(351);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__FeedbackForm_jsx__ = __webpack_require__(352);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_select_plus__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_select_plus___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_react_select_plus__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_select_plus_dist_react_select_plus_css__ = __webpack_require__(360);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_select_plus_dist_react_select_plus_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react_select_plus_dist_react_select_plus_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__containers_LightBulbPanel_jsx__ = __webpack_require__(361);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_select_plus_dist_react_select_plus_css__ = __webpack_require__(360);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_react_select_plus_dist_react_select_plus_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_react_select_plus_dist_react_select_plus_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__containers_LightBulbPanel_jsx__ = __webpack_require__(361);
 
 
 
@@ -53204,8 +53195,7 @@ var DashboardPage = function (_React$Component) {
 
 
 var Dashboard = function Dashboard(_ref) {
-  var handleFeedbackSubmit = _ref.handleFeedbackSubmit,
-      isModalOpen = _ref.isModalOpen,
+  var isModalOpen = _ref.isModalOpen,
       toggleModal = _ref.toggleModal,
       lightStatus = _ref.lightStatus,
       setLightStatus = _ref.setLightStatus,
@@ -53232,7 +53222,7 @@ var Dashboard = function Dashboard(_ref) {
       messages: messages,
       addMessage: addMessage
     }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_6__containers_LightBulbPanel_jsx__["a" /* default */], {
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__containers_LightBulbPanel_jsx__["a" /* default */], {
       lightStatus: lightStatus,
       toggleModal: toggleModal,
       setLightStatus: setLightStatus

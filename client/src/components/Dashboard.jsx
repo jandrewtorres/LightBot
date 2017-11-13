@@ -2,11 +2,10 @@ import React from 'react';
 import ChatPanel from '../containers/ChatPanel.jsx';
 import Modal from './Modal.jsx';
 import FeedbackForm from './FeedbackForm.jsx';
-import Select from 'react-select-plus';
 import 'react-select-plus/dist/react-select-plus.css';
 import LightBulbPanel from '../containers/LightBulbPanel.jsx';
 
-const Dashboard = ({handleFeedbackSubmit, isModalOpen, toggleModal, lightStatus,
+const Dashboard = ({isModalOpen, toggleModal, lightStatus,
   setLightStatus, messages, addMessage}) => (
   <div className='panel-wrapper'>
     <Modal
