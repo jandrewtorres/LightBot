@@ -6,7 +6,7 @@ import 'react-select-plus/dist/react-select-plus.css';
 import LightBulbPanel from '../containers/LightBulbPanel.jsx';
 
 const Dashboard = ({isModalOpen, toggleModal, lightStatus,
-  setLightStatus, messages, addMessage}) => (
+  setLightStatus, messages, addMessage, saveUserAction}) => (
   <div className='panel-wrapper'>
     <Modal
       show={isModalOpen}
@@ -26,6 +26,7 @@ const Dashboard = ({isModalOpen, toggleModal, lightStatus,
       lightStatus={lightStatus}
       toggleModal={toggleModal}
       setLightStatus={setLightStatus}
+      saveUserAction={saveUserAction}
     />
   </div>
 );

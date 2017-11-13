@@ -49,7 +49,34 @@ class LightBulbPanel extends React.Component {
 
 
   logChange(val) {
+    console.log(val.value);
     this.props.setLightStatus(val.value);
+    var intent;
+    var color = 'none';
+    if (val.value == 'light') {
+        intent = 'light_on';
+    }
+    else if (val.value == "dark") {
+        intent = 'light_off';
+    }
+    else if (val.value == "dim") {
+        intent = 'light_dim';
+    }
+    else if (val.value == "brighten") {
+        intent = 'light_brighten';
+    }
+    else if (val.value == 'green' || val.value == 'red' || val.value == 'blue' ||
+      val.value == 'purple' || val.value == 'pink' || val.value == 'orange') {
+        color = val.value;
+        intent = 'light_color';
+    }
+    else if (val.value == 'love' || val.value == 'happy' || val.value == 'happy' ||
+      val.value == 'mad' || val.value == 'sad') {
+        intent = 'light_mood';
+    }
+    console.log(color);
+    console.log(intent);
+    this.props.saveUserAction(color, intent);
   }
 
   render() {

@@ -72,11 +72,9 @@ class DashboardPage extends React.Component {
     }
   }
 
-  saveUserAction(msg) {
-    var color = msg.result.parameters.color != 'undefined' ? msg.result.parameters.color : 'none';
-    var intentName = msg.result.metadata.intentName;
+  saveUserAction = (color, intentName) => {
     var userId = this.state.userJSON._id;
-
+    var colorTwo = color != 'undefined' ? color : 'none';
     fetch('https://light-bot.herokuapp.com/saveuseraction', {
       method: 'POST',
       headers: {
@@ -85,7 +83,7 @@ class DashboardPage extends React.Component {
       },
       body: JSON.stringify({
         intent: intentName,
-        intentColor: color,
+        intentColor: colorTwo,
         userId: userId
       })
     });
@@ -110,7 +108,8 @@ class DashboardPage extends React.Component {
         msgKey: prevState.msgKey + 1
       }));
 
-      this.saveUserAction(msg);
+      this.saveUserAction(msg.result.parameters.color,
+        msg.result.metadata.intentName);
     });
   }
 
@@ -180,6 +179,7 @@ class DashboardPage extends React.Component {
         setLightStatus={this.setLightStatus}
         messages={this.state.messages}
         addMessage={this.addMessage}
+        saveUserAction={this.saveUserAction}
       />);
   }
 
