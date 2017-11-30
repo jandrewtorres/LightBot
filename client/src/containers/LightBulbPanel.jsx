@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Select from 'react-select-plus';
 const defaultLightbulb = require('../../../images/lightbulb.png');
+import Clock from 'react-live-clock';
 
 const options = [
   {
@@ -92,11 +93,23 @@ class LightBulbPanel extends React.Component {
         <div id="bulb-wrapper">
           <img src={ defaultLightbulb }  />
         </div>
+        <Clock
+        className={"clock " + this.props.lightStatus}
+        format={'HH:mm:ss'}
+        ticking={true}
+        timezone={'US/Pacific'} />
         <div id="submit-msg-wrapper">
           <button
+            style={{border: '1px solid black'}}
             id='submit-msg-feedback'
             onClick={this.props.toggleModal}>
             Submit Feedback
+          </button>
+          <button
+            style={{marginLeft: '10px', border: '1px solid black'}}
+            id='submit-msg-feedback'
+            onClick={this.props.toggleScheduleModal}>
+            View Predicted Bed Times
           </button>
         </div>
       </div>

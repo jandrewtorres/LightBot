@@ -11,7 +11,7 @@ class Modal extends React.Component {
     // The gray background
     const backdropStyle = {
       position: 'fixed',
-      top: 0,
+      top: 75,
       bottom: 0,
       left: 0,
       right: 0,

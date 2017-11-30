@@ -88,6 +88,7 @@ class ChatPanel extends React.Component {
               placeholder="Enter Message"
             />
             <input
+              style={{border: '1px solid black'}}
               name="submit-msg"
               type="submit"
               id="submit-msg"

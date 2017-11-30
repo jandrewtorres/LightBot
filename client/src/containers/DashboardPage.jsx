@@ -13,6 +13,7 @@ class DashboardPage extends React.Component {
     this.state = {
       lightStatus: 'dark',
       isFeedbackModalOpen: false,
+      isScheduleModalOpen: false,
       messages: [],
       msgKey: 0,
       userJSON: ''
@@ -140,6 +141,12 @@ class DashboardPage extends React.Component {
     });
   }
 
+  toggleScheduleModal = () => {
+    this.setState({
+      isScheduleModalOpen: !this.state.isScheduleModalOpen
+    });
+  }
+
   /**
    * This method will be executed after initial rendering.
    */
@@ -173,6 +180,8 @@ class DashboardPage extends React.Component {
   render() {
     return (
       <Dashboard
+        isScheduleModalOpen={this.state.isScheduleModalOpen}
+        toggleScheduleModal={this.toggleScheduleModal}
         isModalOpen={this.state.isFeedbackModalOpen}
         toggleModal={this.toggleModal}
         lightStatus={this.state.lightStatus}
